@@ -4,6 +4,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   debug: true,
   trustHost: true,
   session: { strategy: "jwt" },
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account?.id_token) {
+        token.idToken = account.id_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.idToken = token.idToken as string | undefined;
+      return session;
+    },
+  },
   providers: [
     {
       id: "custom-oauth",

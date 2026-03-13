@@ -1,4 +1,4 @@
-import { auth, signIn, signOut } from "@/app/auth";
+import { auth, signIn } from "@/app/auth";
 
 export default async function HomePage() {
   const session = await auth();
@@ -11,16 +11,12 @@ export default async function HomePage() {
         <div className="space-y-3">
           <p>안녕하세요, {session.user.name}님</p>
 
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
+          <a
+            className="inline-block rounded bg-black px-4 py-2 text-white"
+            href="/api/auth/federated-logout"
           >
-            <button className="rounded bg-black px-4 py-2 text-white">
-              로그아웃
-            </button>
-          </form>
+            로그아웃
+          </a>
         </div>
       ) : (
         <form
