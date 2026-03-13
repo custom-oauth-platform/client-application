@@ -34,6 +34,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       name: "Custom OAuth",
       type: "oidc",
       issuer: "http://localhost:9000",
+
+      authorization: {
+        url: "http://localhost:9000/oauth2/authorize",
+        params: {
+          scope: "openid profile",
+        },
+      },
+
       clientId: "oauth2-client-app",
       clientSecret: "secret",
       checks: ["pkce", "state"],
