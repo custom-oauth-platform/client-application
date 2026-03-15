@@ -38,7 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       authorization: {
         url: "http://localhost:9000/oauth2/authorize",
         params: {
-          scope: "openid profile",
+          scope: "openid name gender birthdate email",
         },
       },
 

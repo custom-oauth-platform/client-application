@@ -16,7 +16,7 @@ const RESOURCE_SERVER_BASE_URL =
 
 async function fetchMyPage(accessToken: string): Promise<MyPageApiResponse | null> {
   try {
-    const response = await fetch(`${RESOURCE_SERVER_BASE_URL}/api/mypage`, {
+    const response = await fetch(`${RESOURCE_SERVER_BASE_URL}/api/userinfo`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
