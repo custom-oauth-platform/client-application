@@ -7,7 +7,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
 
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile }) {
       if (account) {
         if (account.id_token) {
           token.idToken = account.id_token;
@@ -18,12 +18,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
       }
 
+      if (profile?.name) {
+        token.name = profile.name;
+      }
+
       return token;
     },
 
     async session({ session, token }) {
       session.idToken = token.idToken as string | undefined;
       session.accessToken = token.accessToken as string | undefined;
+      if (session.user) {
+        session.user.name = (token.name as string | undefined) ?? session.user.name;
+      }
       return session;
     },
   },
